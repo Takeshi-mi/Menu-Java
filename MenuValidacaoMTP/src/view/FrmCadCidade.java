@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import model.Cidade;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
  
 public class FrmCadCidade extends javax.swing.JInternalFrame {
     List<Cidade> lista = new ArrayList<Cidade>();
@@ -19,6 +20,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     public FrmCadCidade() {
         initComponents();
         txtId.setEnabled(false); //Desabilitei o botão pro usuário não editar ele. Não quero editar ID pois é chave primária
+        preencherTabela();
     }
    
 
@@ -50,6 +52,8 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
         btnAnterior = new javax.swing.JButton();
         btnProximo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblCidades = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(204, 255, 255));
         setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -104,10 +108,16 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
             }
         });
 
+        btnNovo.setBackground(new java.awt.Color(255, 255, 204));
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
+            }
+        });
+        btnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnNovoKeyReleased(evt);
             }
         });
 
@@ -146,74 +156,91 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
             }
         });
 
+        tblCidades.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tblCidades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "NOME", "UF", "CEP"
+            }
+        ));
+        tblCidades.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        tblCidades.setSelectionForeground(new java.awt.Color(153, 153, 255));
+        tblCidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCidadesMouseClicked(evt);
+            }
+        });
+        tblCidades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblCidadesKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblCidades);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lblUF)
-                                .addGap(15, 15, 15)
-                                .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblCep)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(cadCidade))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(lblId)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lblNome)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnNovo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnPrimeiro)))
+                    .addComponent(btnNovo)
+                    .addComponent(btnPrimeiro, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAnterior)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProximo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar)))
+                    .addComponent(btnAnterior)
+                    .addComponent(btnSalvar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProximo)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(btnExcluir)))
-                .addGap(16, 16, 16))
+                .addGap(55, 55, 55))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUF)
+                                .addGap(15, 15, 15)
+                                .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(lblCep)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(lblId)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cadCidade)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(cadCidade)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -229,19 +256,27 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCep))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrimeiro)
-                    .addComponent(btnUltimo)
-                    .addComponent(btnAnterior)
-                    .addComponent(btnProximo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnNovo)
-                    .addComponent(btnEditar))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPrimeiro)
+                            .addComponent(btnAnterior))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnNovo)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnUltimo)
+                            .addComponent(btnProximo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnExcluir)
+                            .addComponent(btnEditar))))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -253,7 +288,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
-        Cidade cidade = new Cidade();
+        Cidade cidade = new Cidade(); //startou variável cidade que foi criada com base no modelo cidade.
             
         cidade.id   = Integer.parseInt(txtId.getText());
         cidade.nome = txtNome.getText();
@@ -266,6 +301,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
         
         indice = lista.size()-1;
         mostrarDados();
+        preencherTabela();
        
        
         
@@ -273,7 +309,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (!lista.isEmpty()){
-            int recId = Integer.parseInt(txtId.getText());
+            int recId = Integer.parseInt(txtId.getText());  //RecId é a variável para receber o Id. Ele vai percorrer a lista para saber qual o Id atual e salvar no recId;
         for(int i=0; i<lista.size(); i++)
         {
             if(lista.get(i).id == recId)
@@ -283,6 +319,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
                     if(!lista.isEmpty())
                     {
                     lista.remove(i);
+                    preencherTabela();
                     JOptionPane.showMessageDialog(this,"Removido com sucesso.");
                     if(lista.isEmpty())
                     {
@@ -295,7 +332,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
                 }else{
                         indice=lista.size()-1;
                         mostrarDados();
-                       
+                        
                     }
                    
                 }
@@ -312,7 +349,7 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
        txtNome.setText("");
        cbxUF.setSelectedItem("--Selecionar--");
        txtCep.setText("");
-       
+       preencherTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
@@ -384,9 +421,32 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
                 lista.get(i).uf = cbxUF.getSelectedItem().toString();
                 lista.get(i).cep = txtCep.getText();
                 JOptionPane.showMessageDialog(this, "A cidade de "+lista.get(i).nome+" foi editada com sucesso!");
+                preencherTabela();
             }
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tblCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCidadesMouseClicked
+        preencherFormByTable();
+    }//GEN-LAST:event_tblCidadesMouseClicked
+
+    private void tblCidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblCidadesKeyReleased
+        if(evt.getKeyCode() == 38 || evt.getKeyCode() == 40){
+            preencherFormByTable();
+        }
+    }//GEN-LAST:event_tblCidadesKeyReleased
+
+    private void btnNovoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyReleased
+         if(evt.getKeyCode() == 78){
+       contId++;
+       txtId.setText(""+contId);
+       txtNome.setText("");
+       cbxUF.setSelectedItem("--Selecionar--");
+       txtCep.setText("");
+       preencherTabela();
+             
+         }
+    }//GEN-LAST:event_btnNovoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -402,10 +462,12 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel cadCidade;
     private javax.swing.JComboBox<String> cbxUF;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblUF;
+    private javax.swing.JTable tblCidades;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
@@ -416,6 +478,38 @@ public void mostrarDados()
        txtNome.setText(lista.get(indice).nome);
        cbxUF.setSelectedItem(lista.get(indice).uf);
        txtCep.setText(lista.get(indice).cep);
+}
+public void preencherTabela(){
+    tblCidades.getColumnModel().getColumn(0).setPreferredWidth(WIDTH); //PreferredWidth é a largura medida em pixels
+    tblCidades.getColumnModel().getColumn(1).setPreferredWidth(50); // Ps: Muda esse valor pra Width depois só pra testar
+    tblCidades.getColumnModel().getColumn(2).setPreferredWidth(2);
+    tblCidades.getColumnModel().getColumn(3).setPreferredWidth(20);
+    
+    double b = 5.5;
+    int a = (int)b; // Isso é chamado de casting. colocar o (int) antes do número que você quer converter
+    
+    DefaultTableModel modelo = (DefaultTableModel)tblCidades.getModel();
+    modelo.setNumRows(0); //Limpar a tabela
+    
+    for(int i=0;i<lista.size();i++){
+        modelo.addRow(new Object[]{
+            lista.get(i).id,
+            lista.get(i).nome,
+            lista.get(i).uf,
+            lista.get(i).cep
+        });
+        }
+    }
+
+public void preencherFormByTable(){
+    
+    int lineChoose = tblCidades.getSelectedRow();
+    txtId.setText(tblCidades.getValueAt(lineChoose, 0).toString());
+    txtNome.setText(tblCidades.getValueAt(lineChoose, 1).toString());
+    cbxUF.setSelectedItem(tblCidades.getValueAt(lineChoose,2));
+    txtCep.setText(tblCidades.getValueAt(lineChoose,3).toString());
+    
+    
 }
 
 }

@@ -15,7 +15,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
      */
     public FrmPrincipal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -47,7 +47,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         painelDesktop.setToolTipText("mm");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/CITY CAD LOGO.png"))); // NOI18N
-        jLabel1.setPreferredSize(new java.awt.Dimension(512, 512));
 
         painelDesktop.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -55,17 +54,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
         painelDesktop.setLayout(painelDesktopLayout);
         painelDesktopLayout.setHorizontalGroup(
             painelDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesktopLayout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+            .addGroup(painelDesktopLayout.createSequentialGroup()
+                .addGap(131, 131, 131)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(85, 85, 85))
+                .addGap(145, 145, 145))
         );
         painelDesktopLayout.setVerticalGroup(
             painelDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDesktopLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(98, 98, 98)
+                .addComponent(jLabel1)
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 200, 255));

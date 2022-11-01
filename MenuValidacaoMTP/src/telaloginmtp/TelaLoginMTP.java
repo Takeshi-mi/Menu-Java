@@ -7,6 +7,7 @@ package telaloginmtp;
 
 import view.TelaLogin;
 import view.FrmPrincipal;
+import Conexao.Conexao;
 public class TelaLoginMTP {
 
     /**
@@ -17,6 +18,9 @@ public class TelaLoginMTP {
         principal.setVisible(true);
         TelaLogin login = new TelaLogin();
         login.setVisible(true);
+        
+        Conexao con = new Conexao();
+        con.conectarBanco();
     }
     
 }
