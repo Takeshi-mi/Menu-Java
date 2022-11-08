@@ -7,20 +7,22 @@ package telaloginmtp;
 
 import view.TelaLogin;
 import view.FrmPrincipal;
-import Conexao.Conexao;
+import dao.DaoUsuario;
+import model.Usuario;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 public class TelaLoginMTP {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
-        FrmPrincipal principal = new FrmPrincipal();
-        principal.setVisible(true);
+        
         TelaLogin login = new TelaLogin();
         login.setVisible(true);
         
-        Conexao con = new Conexao();
-        con.conectarBanco();
+       
+       
     }
     
 }

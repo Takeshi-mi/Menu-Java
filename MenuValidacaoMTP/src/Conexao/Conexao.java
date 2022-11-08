@@ -15,21 +15,21 @@ public class Conexao {
     private final String usuario = "root";
     private final String senha   = "";
     
-    public void conectarBanco()
+    public Connection conectarBanco()
     {
     try
     {
         Class.forName(driver);
-        DriverManager.getConnection(url,usuario,senha); //É um só try com 2 catchs.
-        JOptionPane.showMessageDialog(null,"Conectado com sucesso.");
+        conexao = DriverManager.getConnection(url,usuario,senha); //É um só try com 2 catchs.
+        JOptionPane.showMessageDialog(null,"Conectado com o Banco de Dados com sucesso.");
     }catch(ClassNotFoundException drive)
         {
-        JOptionPane.showMessageDialog(null,"Driver não encontrado" + drive);
+        JOptionPane.showMessageDialog(null,"Driver não encontrado. " + drive);
         }
      catch(SQLException fonte)
      {
          JOptionPane.showMessageDialog(null,"Banco de dados não encontrados" + fonte);
      }
-        
+        return conexao;
     }
 }

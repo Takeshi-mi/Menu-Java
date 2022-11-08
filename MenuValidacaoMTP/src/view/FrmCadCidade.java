@@ -6,10 +6,12 @@ import model.Cidade;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import dao.DaoCidade;
  
 public class FrmCadCidade extends javax.swing.JInternalFrame {
+    DaoCidade daocid = new DaoCidade();
     List<Cidade> lista = new ArrayList<Cidade>();
-    int contId = 1;
+    int contid = 0;
     int indice = 0;
     
 
@@ -20,7 +22,9 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     public FrmCadCidade() {
         initComponents();
         txtId.setEnabled(false); //Desabilitei o botão pro usuário não editar ele. Não quero editar ID pois é chave primária
+        lista = daocid.getCidades();
         preencherTabela();
+        mostrarDados();
     }
    
 
@@ -344,8 +348,8 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       contId++;
-       txtId.setText(""+contId);
+       contid++;
+       txtId.setText(""+contid);
        txtNome.setText("");
        cbxUF.setSelectedItem("--Selecionar--");
        txtCep.setText("");
@@ -438,8 +442,8 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
 
     private void btnNovoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyReleased
          if(evt.getKeyCode() == 78){
-       contId++;
-       txtId.setText(""+contId);
+       contid++;
+       txtId.setText(""+contid);
        txtNome.setText("");
        cbxUF.setSelectedItem("--Selecionar--");
        txtCep.setText("");

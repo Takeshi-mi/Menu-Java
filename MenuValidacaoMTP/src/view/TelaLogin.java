@@ -4,7 +4,11 @@
  */
 package view;
 
+import dao.DaoUsuario;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.Usuario;
 
 /**
  *
@@ -40,6 +44,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 255));
+        setUndecorated(true);
 
         txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtTitle.setText("Tela de Login");
@@ -130,10 +135,39 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btbentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbentrarActionPerformed
-        String nome = "Takeshi";
+        String nome = txtNomeLogin.getText();
+        String senha = String.valueOf(pwdSenha.getPassword());
+        
+        DaoUsuario dao = new DaoUsuario();
+        List<Usuario> usuariosdobanco = new ArrayList<Usuario>();
+        usuariosdobanco = dao.getUsuarios();
+        
+        int cont = 0;
+        
+        for (int i = 0;i<usuariosdobanco.size();i++)
+        {
+            if(nome.equals(usuariosdobanco.get(i).nome) && senha.equals(usuariosdobanco.get(i).senha))
+            {
+                cont++;
+            }
+        }
+        if(cont!=0)
+        {
+            JOptionPane.showMessageDialog(this, "Bem vindo!");
+            FrmPrincipal formulario = new FrmPrincipal();
+            formulario.setVisible(true);
+            this.dispose();
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(this,"Usuário ou senha incorretos","Erro ao Logar", JOptionPane.ERROR_MESSAGE);
+        }
+    
+        /*String nome = "Takeshi";
         String senha = "ifg";
         if((new String(txtNomeLogin.getText()).equals(nome ) || new String(txtNomeLogin.getText()).equals("" )) && (new String(pwdSenha.getPassword()).equals(senha))||
                 new String(txtNomeLogin.getText()).equals("")){
@@ -144,7 +178,8 @@ public class TelaLogin extends javax.swing.JFrame {
 } 
         else {
     JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!\nTente \nNome: Takeshi \nSenha: ifg");
-}
+} */
+
 
     }//GEN-LAST:event_btbentrarActionPerformed
 
