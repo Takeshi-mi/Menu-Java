@@ -11,7 +11,7 @@ import dao.DaoCidade;
 public class FrmCadCidade extends javax.swing.JInternalFrame {
     DaoCidade daocid = new DaoCidade();
     List<Cidade> lista = new ArrayList<Cidade>();
-    int contid = 0;
+  
     int indice = 0;
     
 
@@ -294,14 +294,14 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
         
         Cidade cidade = new Cidade(); //startou variável cidade que foi criada com base no modelo cidade.
             
-        cidade.id   = Integer.parseInt(txtId.getText());
         cidade.nome = txtNome.getText();
         cidade.uf   = cbxUF.getSelectedItem().toString();
         cidade.cep  = txtCep.getText();
         
-        lista.add(cidade);
+       daocid.salvarCidade(cidade);
         
-        JOptionPane.showMessageDialog(this, "Cidade salva com sucesso!!");
+       lista.clear();
+       lista=daocid.getCidades();
         
         indice = lista.size()-1;
         mostrarDados();
@@ -314,16 +314,17 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (!lista.isEmpty()){
             int recId = Integer.parseInt(txtId.getText());  //RecId é a variável para receber o Id. Ele vai percorrer a lista para saber qual o Id atual e salvar no recId;
-        for(int i=0; i<lista.size(); i++)
-        {
-            if(lista.get(i).id == recId)
-            {   
-                int op = JOptionPane.showConfirmDialog(this,"Tem certeza que deseja excluir a cidade: "+lista.get(i).nome +"?","Exclusão",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+       
+                int op = JOptionPane.showConfirmDialog(this,"Tem certeza que deseja excluir a cidade?","Exclusão",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                 if (op == 0){
                     if(!lista.isEmpty())
                     {
-                    lista.remove(i);
+                    daocid.excluirCidade(recId);
+                    lista.clear();
+                    lista =daocid.getCidades();
+                    indice= lista.size()-1;
                     preencherTabela();
+                    mostrarDados();
                     JOptionPane.showMessageDialog(this,"Removido com sucesso.");
                     if(lista.isEmpty())
                     {
@@ -340,16 +341,14 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
                     }
                    
                 }
-            }
-        }
+            
     }
         else{ JOptionPane.showMessageDialog(this,"Você desistiu de excluir.");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       contid++;
-       txtId.setText(""+contid);
+       txtId.setText("");
        txtNome.setText("");
        cbxUF.setSelectedItem("--Selecionar--");
        txtCep.setText("");
@@ -417,17 +416,23 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnProximoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int recId = Integer.parseInt(txtId.getText());
-        for(int i=0; i<lista.size(); i++){
-            if(lista.get(i).id == recId)
-            {
-                lista.get(i).nome = txtNome.getText();
-                lista.get(i).uf = cbxUF.getSelectedItem().toString();
-                lista.get(i).cep = txtCep.getText();
-                JOptionPane.showMessageDialog(this, "A cidade de "+lista.get(i).nome+" foi editada com sucesso!");
-                preencherTabela();
-            }
-        }
+       
+        Cidade cidade = new Cidade(); //startou variável cidade que foi criada com base no modelo cidade.
+            
+        cidade.id   = Integer.parseInt(txtId.getText());
+        cidade.nome = txtNome.getText();
+        cidade.uf   = cbxUF.getSelectedItem().toString();
+        cidade.cep  = txtCep.getText();
+        
+       daocid.alterarCidade(cidade);
+        
+       lista.clear();
+       lista=daocid.getCidades();
+        
+        indice = lista.size()-1;
+        mostrarDados();
+        preencherTabela();
+       
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tblCidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCidadesMouseClicked
@@ -442,8 +447,8 @@ public class FrmCadCidade extends javax.swing.JInternalFrame {
 
     private void btnNovoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyReleased
          if(evt.getKeyCode() == 78){
-       contid++;
-       txtId.setText(""+contid);
+      
+       txtId.setText("");
        txtNome.setText("");
        cbxUF.setSelectedItem("--Selecionar--");
        txtCep.setText("");

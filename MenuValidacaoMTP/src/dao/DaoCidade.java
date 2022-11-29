@@ -1,27 +1,76 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import Conexao.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Cidade;
 
-/**
- *
- * @author ifg
- */
+
 public class DaoCidade {
         
     Connection con = null;
     PreparedStatement pstm = null;  // Preparando o caminho. statement é estrada. 
+    
+    public void salvarCidade(Cidade c)
+    {
+        con  = new Conexao().conectarBanco();
+        try{
+            
+        //INSERT INTO tb_cidade(nome_cidade,uf_cidade,cep_cidade) VALUES ('Formosa', 'GO','73.800-000')
+        pstm = con.prepareStatement("INSERT INTO tb_cidade(nome_cidade,uf_cidade,cep_cidade) VALUES (?,?,?)");
+        pstm.setString(1, c.nome);
+        pstm.setString(2, c.uf);
+        pstm.setString(3, c.cep);
+        pstm.execute();
+        JOptionPane.showMessageDialog(null,"A cidade "+c.nome+" foi salva com sucesso!");
+            
+        } catch(SQLException errins){
+            
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao inserir a cidade no BD. Tente novamente"+errins);
+        }
+    }
+
+
+
+public void alterarCidade(Cidade c)
+{
+    con  = new Conexao().conectarBanco();
+    try{
+            
+        //INSERT INTO tb_cidade(nome_cidade,uf_cidade,cep_cidade) VALUES ('Formosa', 'GO','73.800-000')
+        pstm = con.prepareStatement("UPDATE tb_cidade SET nome_cidade=?, uf_cidade=? ,cep_cidade=? WHERE id_cidade = ?");
+        pstm.setString(1, c.nome);
+        pstm.setString(2, c.uf);
+        pstm.setString(3, c.cep);
+        pstm.setInt(4, c.id);
+        pstm.execute();
+        JOptionPane.showMessageDialog(null,"A cidade "+c.nome+" foi alterada com sucesso!");
+            
+        } catch(SQLException erralt){
+            
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao inserir a cidade no BD. Tente novamente"+erralt);
+        }
+}
+public void excluirCidade(int id)
+{
+    con  = new Conexao().conectarBanco();
+    try{
+            
+        //INSERT INTO tb_cidade(nome_cidade,uf_cidade,cep_cidade) VALUES ('Formosa', 'GO','73.800-000')
+        pstm = con.prepareStatement("DELETE FROM tb_cidade WHERE id_cidade = ?");
+        pstm.setInt(1, id);
+        pstm.execute();
+        JOptionPane.showMessageDialog(null,"A cidade foi excluída com sucesso!");
+            
+        } catch(SQLException errexc){
+            
+            JOptionPane.showMessageDialog(null,"Ocorreu um erro ao inserir a cidade no BD. Tente novamente"+errexc);
+        }
+}    
+
+
     
     public List<Cidade> getCidades()
     {

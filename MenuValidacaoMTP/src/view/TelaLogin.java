@@ -43,7 +43,9 @@ public class TelaLogin extends javax.swing.JFrame {
         pwdSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 255, 255));
+        setBackground(new java.awt.Color(153, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFont(new java.awt.Font("Consolas", 0, 10)); // NOI18N
         setUndecorated(true);
 
         txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

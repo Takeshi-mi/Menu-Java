@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/view/FrmPrincipal.java</file>
             <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/telaloginmtp/TelaLoginMTP.java</file>
+            <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/model/Usuario.java</file>
             <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/view/TelaLogin.java</file>
+            <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/Conexao/Conexao.java</file>
+            <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/dao/DaoCidade.java</file>
             <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/model/Cidade.java</file>
+            <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/dao/DaoUsuario.java</file>
             <file>file:/C:/Users/ifg/Documents/NetBeansProjects/MenuValidacaoMTP/src/view/FrmCadCidade.java</file>
         </group>
     </open-files>
